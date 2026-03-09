@@ -17,6 +17,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     ./firefox.nix
+    ./niri
   ];
 
   nixpkgs = {
@@ -26,6 +27,7 @@
       inputs.self.overlays.additions
       inputs.self.overlays.modifications
       inputs.self.overlays.unstable-packages
+      inputs.nur.overlays.default
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
