@@ -1,5 +1,27 @@
 {
   "nodes": {
+    "firefox-addons": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "pkgs/firefox-addons",
+        "lastModified": 1773028978,
+        "narHash": "sha256-4BjOTYhHP8ljHShQyZ1gUIdwgSLjvaGN2ueKfqp6CQk=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "a6ed037ffc0b50a9bd0c92e20e31f270a03ca1e3",
+        "type": "gitlab"
+      },
+      "original": {
+        "dir": "pkgs/firefox-addons",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -55,6 +77,7 @@
     },
     "root": {
       "inputs": {
+        "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable"

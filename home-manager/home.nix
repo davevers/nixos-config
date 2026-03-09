@@ -16,7 +16,7 @@
     # inputs.nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    ./firefox.nix
   ];
 
   nixpkgs = {
@@ -86,8 +86,8 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "Dave Verstrate";
-    userEmail = "daverstrate@gmail.com";
+    settings.user.name = "Dave Verstrate";
+    settings.user.email = "daverstrate@gmail.com";
   };
 
   programs.kitty = {

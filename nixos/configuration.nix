@@ -65,14 +65,23 @@
     # Opinionated: make flake registry and nix path match flake inputs
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+    # Enable garbage collection
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
-  # FIXME: Add the rest of your current configuration
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
 
   boot.initrd.luks.devices."luks-4d3dca95-cccf-48da-b970-cae48ccecfd9".device = "/dev/disk/by-uuid/4d3dca95-cccf-48da-b970-cae48ccecfd9";
+
   networking.hostName = "yoga-laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -101,19 +110,9 @@
     LC_TIME = "nl_NL.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "altgr-intl";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -126,32 +125,18 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
-
-  # TODO: Configure your system-wide user settings (groups, etc), add more users as needed.
   users.users = {
     dave = {
       isNormalUser = true;
       openssh.authorizedKeys.keys = [
         # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
       ];
-      # TODO: Be sure to add any other groups you need (such as networkmanager, audio, docker, etc)
       extraGroups = ["networkmanager" "wheel"];
     };
   };
-
-  # Install firefox.
-  programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
     git

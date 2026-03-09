@@ -12,6 +12,12 @@
     # Home manager
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    # Firefox addons
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -55,19 +61,15 @@
         specialArgs = {inherit inputs;};
         modules = [
           ./nixos/configuration.nix
-        ];
-      };
-    };
-
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "dave@yoga-laptop" = home-manager.lib.homeManagerConfiguration {
-        # Home-manager requires 'pkgs' instance
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./home-manager/home.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs = { inherit inputs; };
+              users = {
+                dave = import ./home-manager/home.nix;
+              };
+            };
+          }
         ];
       };
     };
