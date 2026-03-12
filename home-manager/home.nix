@@ -55,6 +55,8 @@
     fastfetch
     yazi
     btop
+    neovim
+    gh
 
     # archives
     zip
@@ -97,6 +99,10 @@
   };
 
   programs.fish = {
+    enable = true;
+  };
+
+  programs.obsidian = {
     enable = true;
   };
 

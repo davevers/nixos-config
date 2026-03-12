@@ -2,9 +2,7 @@
   inputs,
   config,
   ...
-}:
-
-{
+}: {
   imports = [
     inputs.noctalia.homeModules.default
   ];
@@ -14,15 +12,25 @@
 
     settings = {
       bar = {
-        density = "compact";
+        density = "default";
         position = "top";
-        barType = "floating";
+        barType = "simple";
         showCapsule = true;
         widgets = {
           left = [
             {
               id = "Launcher";
             }
+            {
+              id = "Workspace";
+              hideUnoccupied = false;
+              labelMode = "index";
+            }
+            {
+              id = "ActiveWindow";
+            }
+          ];
+          center = [
             {
               id = "Clock";
               formatHorizontal = "HH:mm ddd, MMM dd";
@@ -31,35 +39,22 @@
               usePrimaryColor = false;
             }
             {
-              id = "SystemMonitor";
-            }
-            {
-              id = "VPN";
-              displayMode = "alwaysShow";
-            }
-            {
-              id = "ActiveWindow";
-            }
-            {
               id = "MediaMini";
-            }
-          ];
-          center = [
-            {
-              id = "Workspace";
-              hideUnoccupied = false;
-              labelMode = "index";
             }
           ];
           right = [
             {
               id = "Tray";
             }
+
             {
               id = "NotificationHistory";
             }
             {
               id = "Volume";
+            }
+            {
+              id = "Battery";
             }
             {
               id = "ControlCenter";
@@ -79,12 +74,8 @@
 
       location = {
         analogClockInCalendar = "true";
-        name = "Indianapolis, US";
+        name = "Rotterdam, NL";
         useFahrenheit = true;
-      };
-
-      network = {
-
       };
     };
     # this may also be a string or a path to a JSON file.
